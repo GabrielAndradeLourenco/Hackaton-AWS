@@ -171,12 +171,12 @@ resource "aws_dynamodb_table" "insights" {
   }
 
   attribute {
-    name = "product_id"
+    name = "review_id"
     type = "S"
   }
 
   attribute {
-    name = "category"
+    name = "evaluate"
     type = "S"
   }
 
@@ -186,8 +186,8 @@ resource "aws_dynamodb_table" "insights" {
   }
 
   global_secondary_index {
-    name            = "product-index"
-    hash_key        = "product_id"
+    name            = "review-index"
+    hash_key        = "review_id"
     projection_type = "ALL"
   }
 

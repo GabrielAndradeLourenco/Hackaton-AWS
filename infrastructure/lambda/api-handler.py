@@ -175,12 +175,12 @@ class ReviewAPI:
         ])
         
         prompt = f"""
-        Analisar avaliações do produto "{product.get('name', 'Product')}" e gerar uma análise DETALHADA:
+        Analyze reviews for product "{product.get('name', 'Product')}" and generate DETAILED analysis:
 
-        AVALIAÇÕES:
+        REVIEWS:
         {reviews_text}
 
-        Retornar JSON com:
+        Return JSON with:
         {{
             "average_score": number,
             "score_distribution": {{"1": count, "2": count, ...}},
@@ -189,11 +189,11 @@ class ReviewAPI:
             "delivery_issues": ["delay", "packaging"],
             "service_issues": ["slow response", "no answer"],
             "positive_points": ["quality", "speed"],
-            "overall_sentiment": "positivo/neutro/negativo",
-            "urgency": "alto/médio/baixo",
+            "overall_sentiment": "positive/neutral/negative",
+            "urgency": "high/medium/low",
             "priority_recommendations": ["action1", "action2", "action3"],
-            "sales_impact": "alto/médio/baixo",
-            "trend": "melhorando/estável/declínio"
+            "sales_impact": "high/medium/low",
+            "trend": "improving/stable/declining"
         }}
         """
         
@@ -217,12 +217,12 @@ class ReviewAPI:
         reviews_text = "\n".join([f"Score: {r['score']} - {r['description']}" for r in recent_reviews])
         
         prompt = f"""
-        Resuma brevemente essas avaliações:
+        Briefly summarize these reviews:
         {reviews_text}
         
-        Retornar JSON:
+        Return JSON:
         {{
-            "general_summary": "texto curto sobre o produto",
+            "general_summary": "short text about the product",
             "main_compliments": ["compliment1", "compliment2"],
             "main_criticisms": ["criticism1", "criticism2"]
         }}

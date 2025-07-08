@@ -11,6 +11,48 @@ class ReviewAPI:
         self.reviews_table = self.dynamodb.Table('retail-hackaton-reviews')
         self.products_table = self.dynamodb.Table('retail-hackaton-products')
         self.insights_table = self.dynamodb.Table('retail-hackaton-insights')
+
+    def invoke_bedrock(feedback):
+        prompt = """
+            Você é responsável por categorizar se um feedback do cliente é positivo ou negativo, e depois,
+            com base em positivo ou negativo e em qual das categorias ele se enquadra
+            (uma ou mais categorias), sempre retorne em JSON.
+
+            Exemplo de saída:
+            {
+            "evaluate": "positive",
+            "categories": [
+                {"delivery": 1, "quality": 0, "price": 1}
+            ]
+            }
+
+            Os valores só podem ser 0 ou 1.
+        """
+        # Coloca também o feedback dentro do prompt
+        full_prompt = prompt + f'\nFeedback: "{feedback}"\n'
+
+        request_body = json.dumps({
+            "anthropic_version": "bedrock-2023-05-31",
+            "max_tokens": 512,
+            "temperature": 0.2,
+            "top_p": 0.9,
+            "messages": [
+                {"role": "user", "content": full_prompt}
+            ]
+        })
+
+        try:
+            response = bedrock_client.invoke_model(
+                modelId=BEDROCK_MODEL_ID,
+                body=request_body,
+                accept="application/json",
+                contentType="application/json"
+            )
+            resp = json.loads(response['body'].read())
+
+            return resp
+        except Exception as e:
+            print(f"Erro ao chamar o Bedrock: {e}")
     
     def create_review(self, event):
         """POST /reviews - Create review (Store)"""
@@ -28,8 +70,13 @@ class ReviewAPI:
             
             # Create review
             review_id = str(uuid.uuid4())
+
+            # Invoke Bedrock to evaluate the review
+            evaluation = self.invoke_bedrock(body['description'])
+
+            print(evaluation)
             
-            self.reviews_table.put_item(
+            """ self.reviews_table.put_item(
                 Item={
                     'review_id': review_id,
                     'product_id': body['product_id'],
@@ -38,7 +85,7 @@ class ReviewAPI:
                     'description': body['description'],
                     'created_at': datetime.now().isoformat()
                 }
-            )
+            ) """
             
             return self._success_response({
                 'review_id': review_id,
