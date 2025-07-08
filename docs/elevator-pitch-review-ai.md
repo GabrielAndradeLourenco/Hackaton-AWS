@@ -1,4 +1,4 @@
-# 🎯 ReviewAI Pro - Elevator Pitch (2 minutos)
+# 🎯 AWS ReviewAI Pro - Elevator Pitch (2 minutos)
 
 ## O Problema
 Sellers perdem **milhões em vendas** porque:
