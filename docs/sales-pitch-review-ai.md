@@ -1,4 +1,4 @@
-# 🚀 ReviewAI Pro - Revolucione seu E-commerce com Inteligência de Avaliações
+# 🚀 AWS ReviewAI Pro - Revolucione seu E-commerce com Inteligência de Avaliações
 
 ## 💡 O Problema que Resolvemos
 
@@ -9,7 +9,7 @@
 - 📉 **Oportunidades desperdiçadas**: Melhorias óbvias não são implementadas
 - 🎯 **Baixa satisfação**: Clientes insatisfeitos porque feedback não é ouvido
 
-## ✨ Nossa Solução: ReviewAI Pro
+## ✨ Nossa Solução: AWS ReviewAI Pro
 
 ### 🧠 Inteligência Artificial que Entende Feedback
 Nossa IA analisa automaticamente:
