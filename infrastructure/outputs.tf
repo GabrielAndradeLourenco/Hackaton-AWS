@@ -1,42 +1,28 @@
-output "admin_api_url" {
-  description = "Admin API Gateway URL"
-  value       = "${aws_api_gateway_rest_api.admin_api.execution_arn}/prod"
+output "api_gateway_url" {
+  description = "API Gateway URL"
+  value       = "https://${aws_api_gateway_rest_api.review_api.id}.execute-api.${var.aws_region}.amazonaws.com/${aws_api_gateway_stage.review_api_prod.stage_name}"
 }
 
-output "public_api_url" {
-  description = "Public API Gateway URL"
-  value       = "${aws_api_gateway_rest_api.public_api.execution_arn}/prod"
-}
-
-output "s3_bucket_name" {
-  description = "S3 bucket name for content assets"
-  value       = aws_s3_bucket.content_assets.bucket
-}
-
-output "cloudfront_domain" {
-  description = "CloudFront distribution domain"
-  value       = aws_cloudfront_distribution.content_cdn.domain_name
-}
-
-output "sns_topic_arn" {
-  description = "SNS topic ARN for notifications"
-  value       = aws_sns_topic.approval_notifications.arn
+output "lambda_function_name" {
+  description = "Lambda function name"
+  value       = aws_lambda_function.review_api.function_name
 }
 
 output "dynamodb_tables" {
   description = "DynamoDB table names"
   value = {
-    products  = aws_dynamodb_table.products.name
-    contents  = aws_dynamodb_table.contents.name
-    approvals = aws_dynamodb_table.approvals.name
+    products = aws_dynamodb_table.products.name
+    reviews  = aws_dynamodb_table.reviews.name
+    insights = aws_dynamodb_table.insights.name
   }
 }
 
-output "lambda_functions" {
-  description = "Lambda function names"
+output "api_endpoints" {
+  description = "API endpoints"
   value = {
-    content_generation = aws_lambda_function.content_generation.function_name
-    approval_handler   = aws_lambda_function.approval_handler.function_name
-    public_api         = aws_lambda_function.public_api.function_name
+    create_review    = "POST ${aws_api_gateway_rest_api.review_api.id}.execute-api.${var.aws_region}.amazonaws.com/${aws_api_gateway_stage.review_api_prod.stage_name}/reviews"
+    admin_reviews    = "GET ${aws_api_gateway_rest_api.review_api.id}.execute-api.${var.aws_region}.amazonaws.com/${aws_api_gateway_stage.review_api_prod.stage_name}/admin/reviews"
+    store_reviews    = "GET ${aws_api_gateway_rest_api.review_api.id}.execute-api.${var.aws_region}.amazonaws.com/${aws_api_gateway_stage.review_api_prod.stage_name}/store/reviews"
+    list_products    = "GET ${aws_api_gateway_rest_api.review_api.id}.execute-api.${var.aws_region}.amazonaws.com/${aws_api_gateway_stage.review_api_prod.stage_name}/products"
   }
 }

@@ -5,17 +5,17 @@ variable "aws_region" {
 }
 
 variable "project_name" {
-  description = "Project name prefix"
+  description = "Project name"
   type        = string
   default     = "retail-hackaton"
 }
 
 variable "tags" {
-  description = "Common tags for all resources"
+  description = "Tags to apply to resources"
   type        = map(string)
   default = {
-    Project     = "Retail Hackaton"
+    Project     = "retail-hackaton"
     Environment = "dev"
-    Team        = "hackaton-team"
+    Team        = "hackaton"
   }
 }
