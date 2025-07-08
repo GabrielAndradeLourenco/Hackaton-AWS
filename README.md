@@ -28,24 +28,28 @@ Sistema backend para geração de imagens de marketing baseado em tendências we
 
 ```
 /
-├── src/                          # Node.js Express API
-│   ├── api/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   └── services/
-│   ├── models/
-│   ├── app.ts
-│   └── server.ts
-├── lambda/                       # AWS Lambda Functions
-│   ├── generator/
-│   ├── worker/
-│   ├── approval/
-│   ├── status/
-│   ├── public/
-│   └── deployment-config.md
-├── package.json
-├── tsconfig.json
-└── .env.example
+├── backend/                      # Backend Node.js + Lambda
+│   ├── src/                      # Express API
+│   │   ├── api/
+│   │   │   ├── controllers/
+│   │   │   ├── routes/
+│   │   │   └── services/
+│   │   ├── models/
+│   │   ├── app.ts
+│   │   └── server.ts
+│   ├── lambda/                   # AWS Lambda Functions
+│   │   ├── generator/
+│   │   ├── worker/
+│   │   ├── approval/
+│   │   ├── status/
+│   │   ├── public/
+│   │   └── deployment-config.md
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── .env.example
+├── frontend/                     # React/Next.js (a ser criado)
+├── infrastructure/               # CDK/Terraform (a ser criado)
+└── README.md
 ```
 
 ## API Endpoints
@@ -75,17 +79,20 @@ Sistema backend para geração de imagens de marketing baseado em tendências we
 ## Setup Rápido
 
 ```bash
-# Instalar dependências
+# Backend
+cd backend
 npm install
-
-# Configurar ambiente
 cp .env.example .env
-
-# Desenvolvimento
 npm run dev
 
-# Build
-npm run build
+# Frontend (quando disponível)
+cd frontend
+npm install
+npm run dev
+
+# Infrastructure (quando disponível)
+cd infrastructure
+# Seguir instruções específicas
 ```
 
 ## Próximos Passos
